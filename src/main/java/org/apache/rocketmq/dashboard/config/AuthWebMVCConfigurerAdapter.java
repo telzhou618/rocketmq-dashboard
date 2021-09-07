@@ -30,14 +30,14 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Configuration
-public class AuthWebMVCConfigurerAdapter extends WebMvcConfigurerAdapter {
+public class AuthWebMVCConfigurerAdapter implements WebMvcConfigurer {
     @Autowired
     @Qualifier("authInterceptor")
     private AuthInterceptor authInterceptor;
@@ -83,7 +83,5 @@ public class AuthWebMVCConfigurerAdapter extends WebMvcConfigurerAdapter {
                 throw new MissingServletRequestPartException(UserInfo.USER_INFO);
             }
         });
-
-        super.addArgumentResolvers(argumentResolvers);  //REVIEW ME
     }
 }
